@@ -6,10 +6,16 @@
  */
 
 module.exports = {
-	addOrUpdateUser : function(req,res) {
 
+    getAllUsers : function(req,res) {
+        return UserService.allUsersData(function(err, users){
+            if(users) {
+               return res.send(users); 
+            }
+         });
+    },
+	addOrUpdateUser : function(req,res) {
         userParams = req.allParams();
-        
         if(typeof userParams.id !== 'undefined') {
            User.update(userParams.id, userParams).then(function (result){
                sails.log('User updated');
